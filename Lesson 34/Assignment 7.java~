@@ -1,0 +1,77 @@
+import java.util.Scanner;
+
+class Main {
+  
+    public static void duplicate(String str)
+    {
+      int n = str.length();
+      if(n % 2 == 0){
+        n *= 2;
+      }
+      for(int i = 0; i < str.length(); i++){
+        for(int p = 0; p < n; p++){
+          System.out.print(str.substring(i,i+1));
+        }
+      }
+    }
+    
+    public static void isEdhesivePalindrome(String str)
+    {
+      if((str.length() < 3) || (str.length() > 15)){
+        System.out.println("Too bad, that isn't an Edhesive Palindrome.");
+      }
+      else{
+        str = str.toLowerCase();
+        String [] change = new String [1];
+        for(int s = 0; s < str.length(); s++){
+          if (str.substring(s,s+1) == "4"){
+            change[0] = change[0] + "a";
+          }
+          if (str.substring(s,s+1) == "3"){
+            change[0] = change[0] + "e";
+          }
+          if (str.substring(s,s+1) == "0"){
+            change[0] = change[0] + "o";
+          }
+          else{
+            change[0] = change[0] + str.substring(s,s+1);
+          }
+        }
+        boolean condition = true;
+        int z = str.length() - 1;
+        for(int y = 0; y < str.length(); y++){
+          if(change[0].substring(y,y+1) == change[0].substring(z-1,z))
+          {
+            z = z - 1;
+          }
+          else{
+            System.out.println("Too bad, that isn't an Edhesive Palindrome.");
+            return;
+          }
+        System.out.println("Nice, you found an Edhesive Palindrome!");
+        return;
+        }
+      }
+    }
+    
+    public static void numberScramble(double num)
+    {
+      System.out.println(" ");
+    }
+    
+    public static void main(String[] args)
+    {
+      Scanner scan = new Scanner (System.in);
+      System.out.println("Welcome to the Methods Sampler Platter. Please enter a String to duplicate.");
+      String name = scan.nextLine();
+      duplicate(name);
+      System.out.println("");
+      System.out.println("Next, please enter a String to check for Edhesive Palindromes.");
+      String pal = scan.nextLine();
+      isEdhesivePalindrome(pal);
+      System.out.println("");
+      System.out.println("Almost done! Please enter a number to scramble.");
+      double number = scan.nextDouble();
+      numberScramble(number);
+    }
+}
