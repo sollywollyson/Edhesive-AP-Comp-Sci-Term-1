@@ -1,0 +1,28 @@
+import java.util.Scanner;
+import java.lang.Math; 
+
+class Main {
+    public static void main(String[] args)
+     {
+Scanner scan = new Scanner(System.in);
+String a=scan.nextLine();
+String p=""; 
+a=a.toLowerCase();
+if (a.length()<10)
+  System.out.println("This doesn't need shortening!");
+else{
+{int z=1;
+  p=p+a.charAt(0);
+  while (z<a.length())
+  if (a.charAt(z)=='a' || a.charAt(z)=='e' || a.charAt(z)=='i' || a.charAt(z)=='o' || a.charAt(z)=='u')
+   z++;
+  else if((a.charAt(z)=='a' || a.charAt(z)=='e' || a.charAt(z)=='i' || a.charAt(z)=='o' || a.charAt(z)=='u')&& a.charAt(z-1)==' '){
+     p=p+a.charAt(z);
+     z++;}
+  else{
+  p=p+a.charAt(z);
+z++;}
+    }
+p=p.toLowerCase();
+System.out.println(p);
+}}}

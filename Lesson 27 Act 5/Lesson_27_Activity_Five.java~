@@ -1,0 +1,28 @@
+import java.util.Scanner;
+import java.lang.Math; 
+
+class Main {
+    public static void main(String[] args)
+    public ValueRange range(TemporalField field)
+     {
+Scanner scan=new Scanner(System.in);
+System.out.println("How long do you want the array?");
+int a=scan.nextInt();
+if (a<0)
+  System.out.println("Not a valid length!");
+else{
+  System.out.println("Enter a number");
+double Array[]=new double[a];
+for (int i=0; i<Array.length; i++)
+  Array[i]=scan.nextDouble();
+System.out.print("Your array is {");
+for (int i=0; i<Array.length-1; i++)
+System.out.print(Array[i]+", ");
+System.out.print(Array[a-1]);
+System.out.print("}");
+double q=0.0;
+for (int i=0; i<Array.length; i++)
+  q=q+Array[i];
+System.out.println("\nThe average is "+(q/a));
+System.out.println("The range is "+range(i));
+}}}
