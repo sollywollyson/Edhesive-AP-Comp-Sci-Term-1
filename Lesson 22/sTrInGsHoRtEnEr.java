@@ -1,68 +1,57 @@
 import java.util.Scanner;
-class Main {
-  public static void main(String[] args) {
-    Scanner scan = new Scanner(System.in);
-    System.out.println("Type the message to be shortened");
-    String inputMsg = scan.nextLine();
-    String buildMsg = "";
-    int doubleLetter = 0;
-    int vowel = 0;
 
-    if (inputMsg.length() >= 10)
+final class Main {
+    public static void main(String[] args)
     {
-      inputMsg = inputMsg.toLowerCase();
-      for(int i = 0; i < (inputMsg.length()); i++)
-      {
+        System.out.println("Type the message to be shortened");
 
-        //Adds the first letter, regardless.
-        if (i == 0)
-        {
-          buildMsg = "" + inputMsg.substring(0,1);
-        }
+        Scanner input = new Scanner(System.in);
+        String inputString = input.nextLine(), replacedString = "";
+        int repeatedCount = 0, vowelCount = 0;
 
-        //Auto adds character, vowel or not, if it follows a space (Start of word.)
-        else if (inputMsg.charAt(i-1) == ' ')
+        if (inputString.length() < 10)
         {
-          buildMsg = buildMsg + inputMsg.charAt(i);
+            System.out.println("This doesn\'t need shortening!");
+            input.close();
+            return;
         }
 
-        //Doesn't add if a double letter
-        else if (inputMsg.charAt(i-1) == inputMsg.charAt(i) && 
-                 (inputMsg.charAt(i) != 'a' && 
-                  inputMsg.charAt(i) != 'e' && 
-                  inputMsg.charAt(i) != 'o' && 
-                  inputMsg.charAt(i) != 'u' && 
-                  inputMsg.charAt(i) != 'i'))
+        for (String indexString : inputString.toLowerCase().split(" "))
         {
-          doubleLetter++;
+            String tempString = indexString;
+            boolean loop = true;
+            int index = 0;
+
+            while (tempString.substring(1).indexOf("a") != -1 || tempString.substring(1)
+                    .indexOf("e") != -1 || tempString.substring(1).indexOf("i") != -1
+                    || tempString.substring(1).indexOf("o") != -1 || tempString.substring(1).indexOf("u") != -1)
+            {
+                tempString = tempString.charAt(0) + tempString.substring(1).replaceFirst("([aeiou])", "");
+                vowelCount++;
+            }
+
+            while (loop && tempString.length() > 1)
+            {
+                if (tempString.charAt(index) == tempString.charAt(index + 1))
+                {
+                    tempString = tempString.substring(0, index) + tempString.substring(index + 1);
+                    repeatedCount++;
+                    index = 0;
+                }
+                index++;
+                loop = index < tempString.length() - 1;
+            }
+
+            replacedString += tempString + " ";
         }
-        else
-        {
-          //Only adds character to final string if not a vowel.
-          if (inputMsg.charAt(i) != 'a' && 
-              inputMsg.charAt(i) != 'e' && 
-              inputMsg.charAt(i) != 'o' && 
-              inputMsg.charAt(i) != 'u' && 
-              inputMsg.charAt(i) != 'i')
-          {
-            buildMsg = buildMsg + inputMsg.charAt(i);
-          }
-          else
-          {
-            vowel++;
-          }
-        }
-      }
-      System.out.println("Shortened message: " + buildMsg);
-      System.out.println("Repeated letters removed: " + doubleLetter);
-      System.out.println("Vowels removed: " + vowel);
-      System.out.println("Total characters saved: " + (vowel + doubleLetter));
-      
+
+        System.out.println(
+                String.format(
+                        "Shortened message: %s\nRepeated letters removed: %d\nVowels removed: %d\nTotal characters saved: %d",
+                        replacedString, repeatedCount, vowelCount, repeatedCount + vowelCount
+                )
+        );
+
+        input.close();
     }
-    else if(inputMsg.length()<10)
-    {
-      //doesn't run word shortening if sentence is < 10 characters.
-      System.out.println("This doesn’t need shortening!");
-    }
-  }
 }
